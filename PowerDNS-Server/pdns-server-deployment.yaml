@@ -28,26 +28,24 @@ spec:
         - name: PDNS_api
           value: yes
         - name: PDNS_api_key
-          value: your_secret_api_key
-        - name: PDNS_gpgsql_dbname
+          value: NzR1MnpMVjlqNWhmbWlq
+        - name: PDNS_gmysql_dbname
           value: pdns
-        - name: PDNS_gpgsql_host
-          value: pdns-db
-        - name: PDNS_gpgsql_password
+        - name: PDNS_gmysql_host
+          value: mysql
+        - name: PDNS_gmysql_password
           value: pdns_password
-        - name: PDNS_gpgsql_port
-          value: "5432"
-        - name: PDNS_gpgsql_user
+        - name: PDNS_gmysql_port
+          value: "3306"
+        - name: PDNS_gmysql_user
           value: pdns_user
-        - name: PDNS_launch
-          value: gpgsql
         - name: PDNS_webserver
           value: yes
         - name: PDNS_webserver_address
           value: 0.0.0.0
         - name: PDNS_webserver_allow_from
           value: 0.0.0.0/0
-        image: psitrax/powerdns:v4.4.1
+        image: pschiffe/pdns-mysql:alpine
         imagePullPolicy: ""
         name: pdns-server
         ports:
