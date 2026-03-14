@@ -26,7 +26,7 @@ services:
       - PDNS_gpgsql_dbname=pdns
       - PDNS_launch=gpgsql
       - PDNS_api=yes
-      - PDNS_api_key=your_secret_api_key
+      - PDNS_api_key=NzR1MnpMVjlqNWhmbWlq
       - PDNS_webserver=yes
       - PDNS_webserver_address=0.0.0.0
       - PDNS_webserver_allow_from=0.0.0.0/0
@@ -42,9 +42,22 @@ services:
       - SQLALCHEMY_DATABASE_URI=postgresql://pdns_user:pdns_password@pdns-db:5432/pdns
       - GUNICORN_TIMEOUT=60
       - PDNS_API_URL=http://pdns-server:8081/
-      - PDNS_API_KEY=your_secret_api_key
+      - PDNS_API_KEY=NzR1MnpMVjlqNWhmbWlq
     depends_on:
       - pdns-db
+      - pdns-server
+
+  dns-api:
+    build: .
+    restart: always
+    ports:
+      - "8000:8000"
+    environment:
+      - DNS_SERVICE_PDNS_API_URL=http://pdns-server:8081
+      - DNS_SERVICE_PDNS_API_KEY=NzR1MnpMVjlqNWhmbWlq
+      - DNS_SERVICE_ADMIN_USERNAME=admin
+      - DNS_SERVICE_ADMIN_PASSWORD=admin
+    depends_on:
       - pdns-server
 
 volumes:
