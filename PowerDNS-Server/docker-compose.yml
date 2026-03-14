@@ -12,6 +12,12 @@ services:
       MYSQL_ROOT_PASSWORD: pdns_root_password
     volumes:
       - pdns-mariadb-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 15s
 
   pdns-server:
     image: pschiffe/pdns-mysql:alpine
@@ -32,7 +38,8 @@ services:
       - PDNS_webserver_address=0.0.0.0
       - PDNS_webserver_allow_from=0.0.0.0/0
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
 
   pdns-admin:
     image: powerdnsadmin/pda-legacy:v0.4.2
@@ -45,8 +52,10 @@ services:
       - PDNS_API_URL=http://pdns-server:8081/
       - PDNS_API_KEY=NzR1MnpMVjlqNWhmbWlq
     depends_on:
-      - mysql
-      - pdns-server
+      mysql:
+        condition: service_healthy
+      pdns-server:
+        condition: service_started
 
 volumes:
   pdns-mariadb-data:
