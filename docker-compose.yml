@@ -13,7 +13,7 @@ services:
 
   # 2. PowerDNS 서버
   pdns-server:
-    image: psitrax/powerdns:latest
+    image: psitrax/powerdns:v4.4.1
     container_name: pdns-server
     restart: always
     ports:
@@ -37,7 +37,7 @@ services:
 
   # 3. PowerDNS-Admin (웹 UI)
   pdns-admin:
-    image: powerdnsadmin/pda-legacy:latest
+    image: powerdnsadmin/pda-legacy:v0.4.2
     container_name: pdns-admin
     restart: always
     ports:
