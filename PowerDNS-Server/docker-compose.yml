@@ -4,6 +4,7 @@ services:
   mysql:
     image: mariadb:10.11
     restart: always
+    command: --skip-ssl
     environment:
       MYSQL_DATABASE: pdns
       MYSQL_USER: pdns_user
