@@ -25,16 +25,12 @@ spec:
     spec:
       containers:
       - env:
-        - name: MYSQL_CLIENT_EXTRA_PARAMS
-          value: --skip-ssl
         - name: PDNS_api
           value: yes
         - name: PDNS_api_key
           value: NzR1MnpMVjlqNWhmbWlq
         - name: PDNS_gmysql_dbname
           value: pdns
-        - name: PDNS_gmysql_ssl
-          value: "no"
         - name: PDNS_gmysql_host
           value: mysql
         - name: PDNS_gmysql_password
