@@ -4,7 +4,11 @@ services:
   mysql:
     image: mysql:8.0
     restart: always
-    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-authentication-plugin=mysql_native_password
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --default-authentication-plugin=mysql_native_password
+      - --ssl=0
     environment:
       MYSQL_DATABASE: pdns
       MYSQL_USER: pdns_user
@@ -28,7 +32,7 @@ services:
       - "53:53/tcp"
       - "15001:8081"
     environment:
-      - MYSQL_CLIENT_EXTRA_PARAMS=--ssl-verify-server-cert=false
+      - MYSQL_CLIENT_EXTRA_PARAMS=--skip-ssl
       - PDNS_gmysql_host=mysql
       - PDNS_gmysql_port=3306
       - PDNS_gmysql_user=root
