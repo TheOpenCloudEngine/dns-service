@@ -1,27 +1,37 @@
-# PowerDNS Service
+# DNS Server & API Service
 
-## Deploy to Docker
+## DNS API Service
+
+```
+pip install -r requirements.txt
+
+
+```
+
+## PowerDNS DNS Server
+
+### Deploy to Docker
 
 ```
 docker-compose up -d
 ```
 
-## Deploy to K8S
+### Deploy to K8S
 
-### Type
+#### Type
 
 * Storage: pdns-postgres-data-persistentvolumeclaim.yaml (DB 저장 공간 확보)
 * Database: pdns-db-deployment.yaml (PostgreSQL 실행)
 * Server: pdns-server-deployment.yaml & pdns-server-service.yaml (PowerDNS 실행)
 * Admin UI: pdns-admin-deployment.yaml & pdns-admin-service.yaml (관리 화면 실행)
 
-## Convert
+### Convert
 
 ```
 kompose convert -f docker-compose.yml
 ```
 
-### Run
+#### Run
 
 ```
 kubectl apply -f .
@@ -37,7 +47,7 @@ kubectl apply -f pdns-server-service.yaml -f pdns-server-deployment.yaml
 kubectl apply -f pdns-admin-service.yaml -f pdns-admin-deployment.yaml
 ```
 
-### 주의사항
+#### 주의사항
 
 * Service Type 확인: 기본적으로 kompose는 서비스를 ClusterIP로 만듭니다. 외부에서 DNS 쿼리를 하거나 Admin UI에 접속하려면 서비스 타입을 NodePort나 LoadBalancer로 수정해야 할 수도 있습니다.
   * pdns-admin-service.yaml을 열어 type: ClusterIP를 type: NodePort로 바꾸면 외부 포트를 통해 UI 접속이 가능해집니다.
