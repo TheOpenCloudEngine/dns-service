@@ -19,7 +19,7 @@ services:
     ports:
       - "53:53/udp"
       - "53:53/tcp"
-      - "8081:8081" # API Port
+      - "15001:8081" # API Port
     environment:
       - PDNS_gpgsql_host=pdns-db
       - PDNS_gpgsql_port=5432
@@ -41,11 +41,11 @@ services:
     container_name: pdns-admin
     restart: always
     ports:
-      - "9191:80" # UI 접속 포트
+      - "15000:80" # UI 접속 포트
     environment:
       - SQLALCHEMY_DATABASE_URI=postgresql://pdns_user:pdns_password@pdns-db:5432/pdns
       - GUNICORN_TIMEOUT=60
-      - PDNS_API_URL=http://pdns-server:8081/
+      - PDNS_API_URL=http://pdns-server:15000/
       - PDNS_API_KEY=your_secret_api_key
     depends_on:
       - pdns-db
