@@ -2,28 +2,29 @@ version: '3.8'
 
 services:
   pdns-db:
-    image: postgres:15-alpine
+    image: mariadb:10.11
     restart: always
     environment:
-      POSTGRES_DB: pdns
-      POSTGRES_USER: pdns_user
-      POSTGRES_PASSWORD: pdns_password
+      MYSQL_DATABASE: pdns
+      MYSQL_USER: pdns_user
+      MYSQL_PASSWORD: pdns_password
+      MYSQL_ROOT_PASSWORD: pdns_root_password
     volumes:
-      - pdns-postgres-data:/var/lib/postgresql/data
+      - pdns-mariadb-data:/var/lib/mysql
 
   pdns-server:
-    image: pschiffe/pdns-pgsql:alpine
+    image: pschiffe/pdns-mysql:alpine
     restart: always
     ports:
       - "53:53/udp"
       - "53:53/tcp"
       - "15001:8081"
     environment:
-      - PDNS_gpgsql_host=pdns-db
-      - PDNS_gpgsql_port=5432
-      - PDNS_gpgsql_user=pdns_user
-      - PDNS_gpgsql_password=pdns_password
-      - PDNS_gpgsql_dbname=pdns
+      - PDNS_gmysql_host=pdns-db
+      - PDNS_gmysql_port=3306
+      - PDNS_gmysql_user=pdns_user
+      - PDNS_gmysql_password=pdns_password
+      - PDNS_gmysql_dbname=pdns
       - PDNS_api=yes
       - PDNS_api_key=NzR1MnpMVjlqNWhmbWlq
       - PDNS_webserver=yes
@@ -38,7 +39,7 @@ services:
     ports:
       - "15000:80"
     environment:
-      - SQLALCHEMY_DATABASE_URI=postgresql://pdns_user:pdns_password@pdns-db:5432/pdns
+      - SQLALCHEMY_DATABASE_URI=mysql://pdns_user:pdns_password@pdns-db:3306/pdns
       - GUNICORN_TIMEOUT=60
       - PDNS_API_URL=http://pdns-server:8081/
       - PDNS_API_KEY=NzR1MnpMVjlqNWhmbWlq
@@ -60,4 +61,4 @@ services:
       - pdns-server
 
 volumes:
-  pdns-postgres-data:
+  pdns-mariadb-data:
