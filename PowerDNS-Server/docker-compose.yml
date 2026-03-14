@@ -12,6 +12,7 @@ services:
       MYSQL_ROOT_PASSWORD: pdns_root_password
     volumes:
       - pdns-mysql-data:/var/lib/mysql
+      - ./mysql-init:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "root", "-ppdns_root_password"]
       interval: 5s
@@ -30,8 +31,8 @@ services:
       - MYSQL_CLIENT_EXTRA_PARAMS=--skip-ssl
       - PDNS_gmysql_host=mysql
       - PDNS_gmysql_port=3306
-      - PDNS_gmysql_user=pdns_user
-      - PDNS_gmysql_password=pdns_password
+      - PDNS_gmysql_user=root
+      - PDNS_gmysql_password=pdns_root_password
       - PDNS_gmysql_dbname=pdns
       - PDNS_api=yes
       - PDNS_api_key=NzR1MnpMVjlqNWhmbWlq
