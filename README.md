@@ -14,6 +14,11 @@ kompose convert -f docker-compose.yml
 
 ## Deploy to K8S
 
+* Storage: pdns-postgres-data-persistentvolumeclaim.yaml (DB 저장 공간 확보)
+* Database: pdns-db-deployment.yaml (PostgreSQL 실행)
+* Server: pdns-server-deployment.yaml & pdns-server-service.yaml (PowerDNS 실행)
+* Admin UI: pdns-admin-deployment.yaml & pdns-admin-service.yaml (관리 화면 실행)
+
 ```
 kubectl apply -f .
 
