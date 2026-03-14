@@ -9,7 +9,7 @@ services:
       POSTGRES_USER: pdns_user
       POSTGRES_PASSWORD: pdns_password
     volumes:
-      - ./apps/powerdns/posgres_data_dir:/var/lib/postgresql/data
+      - /apps/powerdns/posgres_data_dir:/var/lib/postgresql/data
 
   # 2. PowerDNS 서버
   pdns-server:
