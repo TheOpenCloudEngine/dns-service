@@ -4,12 +4,12 @@ services:
   mysql:
     image: mariadb:10.11
     restart: always
-    command: --skip-ssl
     environment:
       MYSQL_DATABASE: pdns
       MYSQL_USER: pdns_user
       MYSQL_PASSWORD: pdns_password
       MYSQL_ROOT_PASSWORD: pdns_root_password
+      MARIADB_AUTO_UPGRADE: "1"
     volumes:
       - pdns-mariadb-data:/var/lib/mysql
     healthcheck:
@@ -47,7 +47,7 @@ services:
     ports:
       - "15000:80"
     environment:
-      - SQLALCHEMY_DATABASE_URI=mysql://pdns_user:pdns_password@mysql:3306/pdns?ssl=false
+      - SQLALCHEMY_DATABASE_URI=mysql://pdns_user:pdns_password@mysql:3306/pdns
       - GUNICORN_TIMEOUT=60
       - PDNS_API_URL=http://pdns-server:8081/
       - PDNS_API_KEY=NzR1MnpMVjlqNWhmbWlq
