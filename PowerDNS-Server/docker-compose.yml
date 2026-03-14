@@ -27,6 +27,7 @@ services:
       - "53:53/tcp"
       - "15001:8081"
     environment:
+      - MYSQL_CLIENT_EXTRA_PARAMS=--skip-ssl
       - PDNS_gmysql_host=mysql
       - PDNS_gmysql_port=3306
       - PDNS_gmysql_user=pdns_user
