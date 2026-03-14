@@ -12,7 +12,7 @@ services:
       - pdns-postgres-data:/var/lib/postgresql/data
 
   pdns-server:
-    image: psitrax/powerdns:v4.4.1
+    image: pschiffe/pdns-pgsql:alpine
     restart: always
     ports:
       - "53:53/udp"
@@ -24,7 +24,6 @@ services:
       - PDNS_gpgsql_user=pdns_user
       - PDNS_gpgsql_password=pdns_password
       - PDNS_gpgsql_dbname=pdns
-      - PDNS_launch=gpgsql
       - PDNS_api=yes
       - PDNS_api_key=NzR1MnpMVjlqNWhmbWlq
       - PDNS_webserver=yes
