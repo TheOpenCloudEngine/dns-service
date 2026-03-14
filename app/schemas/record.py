@@ -32,7 +32,46 @@ class RecordUpdate(BaseModel):
     ttl: int = Field(3600, description="TTL in seconds")
     records: list[RecordItem] = Field(..., description="Updated record values")
 
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "name": "www.example.com.",
+                    "type": "A",
+                    "ttl": 7200,
+                    "records": [
+                        {"content": "192.168.1.1", "disabled": False},
+                        {"content": "192.168.1.2", "disabled": False},
+                    ],
+                }
+            ]
+        }
+    }
+
 
 class RecordDelete(BaseModel):
     name: str = Field(..., description="Record name (FQDN)")
     type: str = Field(..., description="Record type")
+
+    model_config = {
+        "json_schema_extra": {
+            "examples": [
+                {
+                    "name": "www.example.com.",
+                    "type": "A",
+                }
+            ]
+        }
+    }
+
+
+class RecordResponse(BaseModel):
+    """레코드 생성/수정 응답"""
+    message: str = Field(..., description="Result message")
+    name: str = Field(..., description="Record name")
+    type: str = Field(..., description="Record type")
+
+
+class BatchRecordResponse(BaseModel):
+    """레코드 일괄 처리 응답"""
+    message: str = Field(..., description="Result message")
