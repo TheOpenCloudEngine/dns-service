@@ -34,6 +34,7 @@ services:
       - PDNS_gmysql_user=root
       - PDNS_gmysql_password=pdns_root_password
       - PDNS_gmysql_dbname=pdns
+      - PDNS_gmysql_ssl=no
       - PDNS_api=yes
       - PDNS_api_key=NzR1MnpMVjlqNWhmbWlq
       - PDNS_webserver=yes
