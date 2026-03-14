@@ -5,7 +5,9 @@
 ```
 pip install -r requirements.txt
 
+pytest tests/ -v
 
+python main.py
 ```
 
 ## PowerDNS DNS Server
