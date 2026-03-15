@@ -3,8 +3,8 @@ kind: PersistentVolumeClaim
 metadata:
   creationTimestamp: null
   labels:
-    io.kompose.service: pdns-mariadb-data
-  name: pdns-mariadb-data
+    io.kompose.service: pdns-mysql-data
+  name: pdns-mysql-data
 spec:
   accessModes:
   - ReadWriteOnce

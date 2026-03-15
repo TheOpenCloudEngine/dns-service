@@ -32,7 +32,7 @@ spec:
         - name: PDNS_API_URL
           value: http://pdns-server:8081/
         - name: SQLALCHEMY_DATABASE_URI
-          value: mysql://pdns_user:pdns_password@mysql:3306/pdns
+          value: mysql://pdns_user:pdns_password@mysql:3306/pdns?ssl=false
         image: powerdnsadmin/pda-legacy:v0.4.2
         imagePullPolicy: ""
         name: pdns-admin
